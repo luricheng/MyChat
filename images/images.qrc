@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/">
+        <file>bold.png</file>
+        <file>Cherry.png</file>
+        <file>clear.png</file>
+        <file>color.png</file>
+        <file>dr.png</file>
+        <file>images.qrc</file>
+        <file>italic.png</file>
+        <file>jj.png</file>
+        <file>lswh.png</file>
+        <file>qmnn.png</file>
+        <file>qq.png</file>
+        <file>save.png</file>
+        <file>send.png</file>
+        <file>spqy.png</file>
+        <file>Thumbs.db</file>
+        <file>under.png</file>
+        <file>wy.png</file>
+        <file>ymrl.png</file>
+        <file>login.png</file>
+        <file>chatWinBackGround.jpg</file>
+        <file>mainWinBackGround.jpg</file>
+    </qresource>
+</RCC>
