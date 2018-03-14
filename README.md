@@ -14,6 +14,6 @@
 
 数据库文件: database/MyChat.sql
 
-![image](https://github.com/luricheng/Qt-MyChat/raw/master/image/sc1.png)
-![image](https://github.com/luricheng/Qt-MyChat/raw/master/image/sc2.png)
-![image](https://github.com/luricheng/Qt-MyChat/raw/master/image/sc3.png)
+![image](https://github.com/luricheng/Qt-MyChat/raw/master/images/sc1.png)
+![image](https://github.com/luricheng/Qt-MyChat/raw/master/images/sc2.png)
+![image](https://github.com/luricheng/Qt-MyChat/raw/master/images/sc3.png)
