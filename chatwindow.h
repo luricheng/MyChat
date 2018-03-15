@@ -6,6 +6,7 @@
 #include<usrinfo.h>
 
 class UdpServer;
+class UsrInfo;
 namespace Ui {
 class ChatWindow;
 }
@@ -16,10 +17,11 @@ class ChatWindow : public QMainWindow
 
 public:
     //explicit ChatWindow(QWidget *parent = 0);
-    explicit ChatWindow(unsigned int myId,unsigned int otherId,UdpServer*udpServer,QWidget *parent = 0);
+    explicit ChatWindow(MainWindow*mainWins,unsigned int myId,unsigned int otherId,UdpServer*udpServer,QWidget *parent = 0);
+    explicit ChatWindow(MainWindow*mainWins,UsrInfo*myInfo,UsrInfo*otherInfo,UdpServer*udpServer,QWidget *parent = 0);
     ~ChatWindow();
     void showMsg(const QString&msg);
-    void setIds(unsigned int myId,unsigned int otherId);
+    //void setIds(unsigned int myId,unsigned int otherId);
 private slots:
     void close();
 
@@ -27,8 +29,9 @@ private slots:
 
 private:
     Ui::ChatWindow *ui;
-    unsigned int myId,otherId;
+    UsrInfo*myInfo,*otherInfo;
     UdpServer*udpServer;
+    MainWindow*mainWins;
 };
 
 #endif // CHATWINDOW_H

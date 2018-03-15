@@ -22,8 +22,9 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
+    friend class UsrInfo;
+    friend class ChatWindow;
     //explicit MainWindow(QWidget *parent = 0);
     explicit MainWindow(unsigned int id,QWidget *parent = 0);
     ~MainWindow();
@@ -40,6 +41,7 @@ private:
     void initFriendsList();
     QMap<unsigned int,ChatWindow*>chatWindows;
     UdpServer*udpServer;
+    QMap<unsigned int,UsrInfo*>infoMap;
 };
 
 #endif // MAINWINDOW_H

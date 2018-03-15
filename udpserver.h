@@ -5,14 +5,16 @@
 #include<QUdpSocket>
 #include<chatwindow.h>
 #include<QMap>
+#include<mainwindow.h>
 
+class MainWindow;
 class ChatWindow;
 class UdpServer : public QObject
 {
     Q_OBJECT
     friend class ChatWindow;
 public:
-    explicit UdpServer(unsigned int port, QMap<unsigned int, ChatWindow *> *chatWins,QObject *parent=0);
+    explicit UdpServer(MainWindow*mainWins,unsigned int port, QMap<unsigned int, ChatWindow *> *chatWins,QObject *parent=0);
 signals:
 
 public slots:
@@ -25,6 +27,7 @@ private:
     void showMsgReceive(unsigned int from,const QString&msg);
     void analyzeMessage(const QString&text);
     void sendMessage(unsigned int sendPort,const QString &msg);
+    MainWindow*mainWins;
 };
 
 #endif // UDPSERVER_H

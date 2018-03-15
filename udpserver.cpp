@@ -2,11 +2,12 @@
 
 #include<QHostAddress>
 
-UdpServer::UdpServer(unsigned int port, QMap<unsigned int, ChatWindow *> *chatWins,QObject *parent) :
+UdpServer::UdpServer(MainWindow*mainWins,unsigned int port, QMap<unsigned int, ChatWindow *> *chatWins,QObject *parent) :
     QObject(parent),
     port(port),
     chatWindows(chatWins)
 {
+    this->mainWins=mainWins;
     socket=new QUdpSocket();
     socket->bind(port);
     connect(socket,SIGNAL(readyRead()),this,SLOT(dataReceive()));
@@ -15,7 +16,7 @@ UdpServer::UdpServer(unsigned int port, QMap<unsigned int, ChatWindow *> *chatWi
 void UdpServer::showMsgReceive(unsigned int from,const QString&msg){
     auto&chatWins=*chatWindows;
     if(chatWins.find(from)==chatWins.end()){
-        chatWins[from]=new ChatWindow(port,from,this);
+        chatWins[from]=new ChatWindow(mainWins,port,from,this);
     }
     ChatWindow*win=chatWins[from];
     win->show();

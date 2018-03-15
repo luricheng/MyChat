@@ -11,15 +11,28 @@ ChatWindow::ChatWindow(QWidget *parent) :
 }
 */
 
-ChatWindow::ChatWindow(unsigned int myId, unsigned int otherId,UdpServer*udpServer, QWidget *parent):
+ChatWindow::ChatWindow(MainWindow*mainWins,UsrInfo*myInfo,UsrInfo*otherInfo,UdpServer*udpServer,QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::ChatWindow),
-    myId(myId),
-    otherId(otherId),
+    myInfo(myInfo),
+    otherInfo(otherInfo),
     udpServer(udpServer)
 {
     ui->setupUi(this);
-    ui->label->setText(QString::number(otherId));
+    this->mainWins=mainWins;
+    ui->label->setText(otherInfo->getNick()+'('+QString::number(otherInfo->getId())+')');
+}
+
+ChatWindow::ChatWindow(MainWindow*mainWins,unsigned int myId, unsigned int otherId,UdpServer*udpServer, QWidget *parent):
+    QMainWindow(parent),
+    ui(new Ui::ChatWindow),
+    udpServer(udpServer)
+{
+    ui->setupUi(this);
+    this->mainWins=mainWins;
+    myInfo = mainWins->infoMap[myId];
+    otherInfo = mainWins->infoMap[otherId];
+    ui->label->setText(otherInfo->getNick()+'('+QString::number(otherInfo->getId())+')');
 
     //setStyleSheet("background-image: url(/home/lu/code/QtProject/MyChat/images/chatWinBackGround.jpg)");
 }
@@ -37,13 +50,6 @@ void ChatWindow::close(){
     this->setVisible(false);
 }
 
-void ChatWindow::setIds(unsigned int myId, unsigned int otherId)
-{
-    this->myId=myId;
-    this->otherId=otherId;
-    //qDebug()<<myId<<" "<<otherId<<endl;
-}
-
 void ChatWindow::on_sendButton_clicked()
 {
     if(ui->textEdit->toPlainText().isEmpty()){
@@ -51,6 +57,8 @@ void ChatWindow::on_sendButton_clicked()
     }
     QString msg=ui->textEdit->toPlainText();
     ui->textEdit->clear();
+    unsigned int myId = myInfo->getId();
+    unsigned int otherId = otherInfo->getId();
     ui->textBrowser->insertPlainText(QString::number(myId)+":\n"+msg+"\n");
     msg="*"+QString::number(myId)+"*"+msg+"\n";
     udpServer->sendMessage(otherId,msg);

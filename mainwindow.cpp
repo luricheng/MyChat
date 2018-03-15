@@ -14,18 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 */
 
-QString getMotto(unsigned int id){//获取签名(座右铭)
-    QSqlQuery query;
-    query.prepare("select motto from Account where id=?;");
-    query.addBindValue(id);
-    bool ok = query.exec();
-    if(ok&&query.next()){
-        return query.value(0).toString();
-    }
-    qDebug()<<"getMotto error!"<<endl;
-    return "";
-}
-
 MainWindow::MainWindow(unsigned int id,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -34,13 +22,14 @@ MainWindow::MainWindow(unsigned int id,QWidget *parent) :
     //setStyleSheet("background-image: url(/home/lu/code/QtProject/MyChat/images/mainWinBackGround.jpg)");
 
     this->id = id;
-    udpServer=new UdpServer(id,&chatWindows);//udp
+    udpServer=new UdpServer(this,id,&chatWindows);//udp
 
     this->setCentralWidget(ui->widget);
 
     myInfo = new UsrInfo(this);//设置头像
-    myInfo->init(this,id,&chatWindows,getMotto(id));
+    myInfo->init(this,id,&chatWindows);
     friendsBox=new QToolBox();//好友列表
+    infoMap[id]=myInfo;
 
     QVBoxLayout*layout=new QVBoxLayout();//添加进gui中
     layout->addWidget(myInfo);
@@ -61,8 +50,9 @@ void MainWindow::initFriendsList(){
         QVBoxLayout*layout=new QVBoxLayout();
         for(int id:*it.value()){
             UsrInfo*usr=new UsrInfo(this);
-            usr->init(this,id,&chatWindows,getMotto(id));
+            usr->init(this,id,&chatWindows);
             layout->addWidget(usr);
+            infoMap[id]=usr;
         }
         groupWidget->setLayout(layout);
     }
