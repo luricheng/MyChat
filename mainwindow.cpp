@@ -13,6 +13,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 */
+
+QString getMotto(unsigned int id){//获取签名(座右铭)
+    QSqlQuery query;
+    query.prepare("select motto from Account where id=?;");
+    query.addBindValue(id);
+    bool ok = query.exec();
+    if(ok&&query.next()){
+        return query.value(0).toString();
+    }
+    qDebug()<<"getMotto error!"<<endl;
+    return "";
+}
+
 MainWindow::MainWindow(unsigned int id,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -26,7 +39,7 @@ MainWindow::MainWindow(unsigned int id,QWidget *parent) :
     this->setCentralWidget(ui->widget);
 
     myInfo = new UsrInfo(this);//设置头像
-    myInfo->init(this,id,&chatWindows);
+    myInfo->init(this,id,&chatWindows,getMotto(id));
     friendsBox=new QToolBox();//好友列表
 
     QVBoxLayout*layout=new QVBoxLayout();//添加进gui中
@@ -48,7 +61,7 @@ void MainWindow::initFriendsList(){
         QVBoxLayout*layout=new QVBoxLayout();
         for(int id:*it.value()){
             UsrInfo*usr=new UsrInfo(this);
-            usr->init(this,id,&chatWindows);
+            usr->init(this,id,&chatWindows,getMotto(id));
             layout->addWidget(usr);
         }
         groupWidget->setLayout(layout);
@@ -72,25 +85,6 @@ void MainWindow::addFirends(unsigned int id){
         }
         friends[groupName]->append(id);
     }
-/*
-    friends.push_back({QString("同学"),new QLinkedList<int>()});
-    QLinkedList<int>*ls=friends.back().second;
-    int idx=10000;
-    for(int i=0;i<3;++i){
-        if(idx==id){
-            ++idx;
-        }
-        ls->push_back(idx++);
-    }
-
-    friends.push_back({QString("家人"),new QLinkedList<int>()});
-    ls=friends.back().second;
-    for(int i=0;i<5;++i){
-        if(idx==id){
-            ++idx;
-        }
-        ls->push_back(idx++);
-    }*/
 }
 
 MainWindow::~MainWindow()
