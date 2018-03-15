@@ -24,7 +24,9 @@ DROP TABLE IF EXISTS `Account`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Account` (
   `id` int(11) DEFAULT NULL,
-  `password` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `password` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `motto` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nick` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -34,7 +36,7 @@ CREATE TABLE `Account` (
 
 LOCK TABLES `Account` WRITE;
 /*!40000 ALTER TABLE `Account` DISABLE KEYS */;
-INSERT INTO `Account` VALUES (10000,'10000'),(10001,'10001'),(10002,'10002'),(10003,'10003'),(10004,'10004');
+INSERT INTO `Account` VALUES (10000,'10000','mychat是世界上最好的聊天工具','lu'),(10001,'10001','php是世界上最好的语言[B','测试1'),(10002,'10002','Java是世界上最好的语言','测试2'),(10003,'10003','Python是世界上最好的语言','测试3'),(10004,'10004','C++是世界上最好的语言','测试4'),(10010,'10010','123','测试10'),(10011,'10011','123','测试11');
 /*!40000 ALTER TABLE `Account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,4 +73,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-14 22:45:07
+-- Dump completed on 2018-03-15 23:36:30
