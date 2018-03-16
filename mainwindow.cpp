@@ -5,6 +5,10 @@
 #include<QLabel>
 #include<QScrollArea>
 #include<QSqlQuery>
+
+#include<QToolBar>
+#include<QPushButton>
+#include<QStatusBar>
 /*
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,6 +17,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 */
+
+void MainWindow::on_changeInfoButton_clicked(){
+    qDebug()<<"clicked changeInfoBtn!"<<endl;
+    ChangeInfo*changeInfo = new ChangeInfo(this);
+    changeInfo->show();
+}
 
 MainWindow::MainWindow(unsigned int id,QWidget *parent) :
     QMainWindow(parent),
@@ -26,7 +36,7 @@ MainWindow::MainWindow(unsigned int id,QWidget *parent) :
 
     this->setCentralWidget(ui->widget);
 
-    myInfo = new UsrInfo(this);//设置头像
+    myInfo = new UsrInfo(this);//设置头像^
     myInfo->init(this,id,&chatWindows);
     friendsBox=new QToolBox();//好友列表
     infoMap[id]=myInfo;
@@ -38,6 +48,11 @@ MainWindow::MainWindow(unsigned int id,QWidget *parent) :
 
     addFirends(id);//生成好友
     initFriendsList();//导入好友
+
+    changeInfoButton = new QPushButton(tr("修改信息"));
+    ui->statusBar->addWidget(changeInfoButton);
+
+    connect(changeInfoButton,SIGNAL(clicked()),this,SLOT(on_changeInfoButton_clicked()));
 
     chatWindows[id]=nullptr;
 }
@@ -75,6 +90,10 @@ void MainWindow::addFirends(unsigned int id){
         }
         friends[groupName]->append(id);
     }
+}
+
+UsrInfo*MainWindow::getUsrInfo(){
+    return myInfo;
 }
 
 MainWindow::~MainWindow()

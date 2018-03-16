@@ -19,6 +19,10 @@ unsigned int UsrInfo::getId()const{
     return id;
 }
 
+QString UsrInfo::getMotto()const{
+    return motto;
+}
+
 void UsrInfo::init(MainWindow*mainWin,unsigned int id, QMap<unsigned int, ChatWindow *> *chatWins/*, QString motto*/){
     this->mainWin=mainWin;
     this->id=id;
@@ -49,6 +53,10 @@ void UsrInfo::init(MainWindow*mainWin,unsigned int id, QMap<unsigned int, ChatWi
     QString idText=nick+'('+QString::number(id)+')';//昵称(id号)
     ui->idLabel->setText(idText);
     ui->mottoLabel->setText(motto);
+}
+
+void UsrInfo::updateInfo(){
+    this->init(mainWin,id,chatWindows);
 }
 
 UsrInfo::~UsrInfo()

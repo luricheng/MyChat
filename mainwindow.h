@@ -11,10 +11,13 @@
 #include<QLinkedList>
 #include<QMap>
 #include<udpserver.h>
+#include<QPushButton>
+#include<changeinfo.h>
 
 class UsrInfo;
 class UdpServer;
 class ChatWindow;
+class ChangeInfo;
 namespace Ui {
 class MainWindow;
 }
@@ -30,6 +33,10 @@ public:
     ~MainWindow();
     unsigned int getId();
     UdpServer*getUdpServer();
+    UsrInfo*getUsrInfo();
+
+private slots:
+    void on_changeInfoButton_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -42,6 +49,7 @@ private:
     QMap<unsigned int,ChatWindow*>chatWindows;
     UdpServer*udpServer;
     QMap<unsigned int,UsrInfo*>infoMap;
+    QPushButton*changeInfoButton;
 };
 
 #endif // MAINWINDOW_H

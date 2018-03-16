@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     chatwindow.cpp \
     udpserver.cpp \
     login.cpp \
-    friend.cpp
+    friend.cpp \
+    changeinfo.cpp
 
 HEADERS  += mainwindow.h \
     usrinfo.h \
@@ -28,12 +29,14 @@ HEADERS  += mainwindow.h \
     udpserver.h \
     login.h \
     connection.h \
-    friend.h
+    friend.h \
+    changeinfo.h
 
 FORMS    += mainwindow.ui \
     usrinfo.ui \
     chatwindow.ui \
-    login.ui
+    login.ui \
+    changeinfo.ui
 
 RESOURCES += \
     images/images.qrc
